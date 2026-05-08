@@ -7,6 +7,8 @@ export class LoginPage {
   readonly continueButton: Locator;
   readonly errorMessageEmail: Locator;
   readonly errorMessagePassword: Locator;
+  readonly viewIcon: Locator;
+  readonly editButton: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -23,6 +25,12 @@ export class LoginPage {
 
     // Specifivally targeting the password help/error text area 
     this.errorMessagePassword = page.locator('[data-qa-id="password-input-help-text"]');
+
+    //Targets the eye icon to view the password
+    this.viewIcon = page.locator('[data-qa-id="toggle-password-visibility"]')
+
+    //Target the edit button to return to the email enter page
+    this.editButton = page.locator('[data-qa-id="edit-identifier"]')
   }
 
   async goto() {
@@ -52,4 +60,14 @@ export class LoginPage {
     await this.passwordInput.fill(password);
     await this.continueButton.click();
   }
+
+  /**
+   * Enter password and clicks the eye icon to view it
+   */
+  async viewPassword(password:string){
+    await this.passwordInput.waitFor({ state: 'visible' });
+    await this.passwordInput.fill(password);
+    await this.viewIcon.click();
+  }
+
 }

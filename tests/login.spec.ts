@@ -35,4 +35,15 @@ test.describe('Hudl Login Suite', () => {
     await expect(loginPage.errorMessagePassword).toBeVisible();
     await expect(loginPage.errorMessagePassword).toContainText("Incorrect username or password.");
   });
+
+    test('Viewing/Hiding password using eye icon', async ({ page }) => {
+    await loginPage.enterEmail('thisuserdoesnotexist123@gmail.com');
+    await loginPage.viewPassword('randompassword')
+
+    await expect(loginPage.passwordInput).toHaveAttribute('type', 'text');
+
+    await loginPage.viewIcon.click();
+
+    await expect(loginPage.passwordInput).toHaveAttribute('type', 'password');
+  });
 });
