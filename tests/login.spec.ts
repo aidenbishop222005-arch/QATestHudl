@@ -46,4 +46,12 @@ test.describe('Hudl Login Suite', () => {
 
     await expect(loginPage.passwordInput).toHaveAttribute('type', 'password');
   });
+
+  
+    test('Editing Email', async ({ page }) => {
+    await loginPage.enterEmail('thisuserdoesnotexist123@gmail.com');
+    await loginPage.editButton.click();
+
+    await expect(loginPage.emailInput).toBeVisible();
+  });
 });
